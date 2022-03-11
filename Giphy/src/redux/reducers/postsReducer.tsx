@@ -21,6 +21,9 @@ export function postsReducer(state = defaultState, action: any) {
   if (action.type === ACTIONS.FETCH_POSTS) {
     console.log(action.posts);
     return { ...state, posts: action.posts };
+  } else if (action.type === ACTIONS.SEARCH_GIFS) {
+    console.log(action.posts);
+    return { ...state, posts: action.posts };
   }
   return state;
 }
