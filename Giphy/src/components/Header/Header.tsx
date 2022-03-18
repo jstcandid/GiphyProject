@@ -1,8 +1,31 @@
+import { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchGifs } from '../../redux/actions/postActions';
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
 import styles from './Header.module.css';
 
 export function Header() {
+  const [search, setSearch] = useState('');
+  const dispatch = useDispatch();
+
+  const onChange = useCallback(
+    (event) => {
+      setSearch(event.target.value);
+      dispatch(searchGifs(search));
+    },
+    [search]
+  );
+
+  const onKeyDown = useCallback(
+    (event) => {
+      if (event.key === 'Enter') {
+        dispatch(searchGifs(search));
+      }
+    },
+    [search]
+  );
+
   return (
     <div className={`${styles.header}`}>
       <svg
@@ -32,7 +55,8 @@ export function Header() {
           height='60px'
           width='80vw'
           label='label'
-          onChange={() => {}}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
         />
       </div>
       <div className={`${styles.buttons}`}>
