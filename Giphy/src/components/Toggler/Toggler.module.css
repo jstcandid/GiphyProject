@@ -1,0 +1,35 @@
+.btn_container {
+  width: 60px;
+  height: 30px;
+  background-color: #fdfdff;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 50px;
+  border: 0.5px solid #007bff;
+  padding: 5px 8px 5px 8px;
+  /* margin-right: 20px; */
+}
+
+.toggle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #016efc;
+  border-radius: 50px;
+  display: block;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.inactive {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: block;
+  border-radius: 50px;
+  transform: translateX(calc(60px - 18px));
+
+  background-color: #016efc;
+  transition: all 0.3s ease;
+}
