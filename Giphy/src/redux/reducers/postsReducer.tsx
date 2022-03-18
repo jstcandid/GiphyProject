@@ -11,19 +11,31 @@ export interface IPost {
 }
 export interface IPostsState {
   posts: IPost[];
+  post: IPost;
 }
 
 const defaultState: IPostsState = {
   posts: [],
+  post: {
+    type: '',
+    id: '',
+    url: '',
+    username: '',
+    title: '',
+    size: 0,
+    height: 0,
+  },
 };
 
 export function postsReducer(state = defaultState, action: any) {
   if (action.type === ACTIONS.FETCH_POSTS) {
-    console.log(action.posts);
     return { ...state, posts: action.posts };
   } else if (action.type === ACTIONS.SEARCH_GIFS) {
-    console.log(action.posts);
     return { ...state, posts: action.posts };
+  } else if (action.type === ACTIONS.GET_POST) {
+    return { ...state, post: action.post };
+  } else if (action.type === ACTIONS.CLEAN_POST_STATE) {
+    return { ...state, post: action.post };
   }
   return state;
 }

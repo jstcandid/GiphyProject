@@ -14,3 +14,26 @@
   grid-auto-rows: var(--row_increment);
   justify-content: center;
 }
+
+.button {
+  display: flex;
+  position: sticky;
+  bottom: 20px;
+  margin-left: 95vw;
+}
+
+.button_plus {
+  font-size: 20px;
+  border: 2px solid transparent;
+  background: #f1e8e4;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #fafaf8;
+  transition: filter 300ms;
+  cursor: pointer;
+}
+
+.button_plus:hover {
+  filter: brightness(0.8);
+}

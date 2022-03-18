@@ -1,6 +1,7 @@
 .header {
   display: flex;
-  margin: 3vh 0 2vh 0;
+  align-items: flex-end;
+  margin-bottom: 40px;
 }
 
 :root {
@@ -9,22 +10,75 @@
 }
 
 .logo {
-  margin-right: 3vw;
+  cursor: pointer;
 }
 
 .input {
   margin: 0;
+  margin-left: 25px;
   padding: 0;
   width: 90vw;
-  margin: auto;
-  grid-template-columns: repeat(auto-fill, var(--card_width));
-  grid-auto-rows: var(--row_increment);
-  justify-content: center;
 }
 
 .buttons {
   margin: 0 2vw 0 2vw;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   display: flex;
+  position: relative;
+}
+
+.button_person {
+  font-size: 20px;
+  border: 2px solid rgb(195, 107, 67);
+  background: #f1e8e4;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #fafaf8;
+  margin: 0 5px 0 5px;
+  cursor: pointer;
+}
+
+.button {
+  background-color: #fafaf8;
+  font-size: 20px;
+  width: 10vh;
+  height: 10vh;
+  border-radius: 50%;
+  border: none;
+  width: 2.5vw;
+  height: 2.5vw;
+  transition: filter 300ms;
+  cursor: pointer;
+}
+
+.button:hover {
+  filter: brightness(0.8);
+}
+
+.button_person:hover {
+  filter: brightness(0.8);
+}
+
+.input_item {
+  background: #f1e8e4;
+  border: none;
+  border-radius: 200px;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 29px;
+  letter-spacing: 0.05em;
+  color: #254050;
+  padding: 0 20px 0 20px;
+  height: 60px;
+  width: 80vw;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

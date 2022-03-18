@@ -1,8 +1,8 @@
 import { Dispatch } from 'redux';
 
-export function fetchPosts() {
-  const key = 'LCQTJ3sO5PH4lYcdvY06o7KW5iIoWRfO';
+const key = 'LCQTJ3sO5PH4lYcdvY06o7KW5iIoWRfO';
 
+export function fetchPosts() {
   return async (dispatch: Dispatch) => {
     const response = await fetch(
       `https://api.giphy.com/v1/gifs/trending?api_key=${key}&limit=100`
@@ -24,8 +24,6 @@ export function fetchPosts() {
 }
 
 export function searchGifs(searchWord: string) {
-  const key = 'LCQTJ3sO5PH4lYcdvY06o7KW5iIoWRfO';
-
   return async (dispatch: Dispatch) => {
     const response = await fetch(
       `https://api.giphy.com/v1/gifs/search?api_key=${key}&q=${searchWord}?limit=50`
@@ -43,5 +41,38 @@ export function searchGifs(searchWord: string) {
     });
 
     dispatch({ type: 'SEARCH_GIFS', posts: result });
+  };
+}
+
+export function fetchPost(id: string) {
+  return async (dispatch: Dispatch) => {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/${id}?api_key=${key}`
+    );
+    const data = await response.json();
+
+    const result = {
+      height: data.data.images.original.height,
+      type: data.data.type,
+      id: data.data.id,
+      url: data.data.images.original.url,
+      username: data.data.username,
+      title: data.data.title,
+    };
+    dispatch({ type: 'GET_POST', post: result });
+  };
+}
+
+export function cleanPostState() {
+  return async (dispatch: Dispatch) => {
+    const post = {
+      height: 0,
+      type: '',
+      id: '',
+      url: '',
+      username: '',
+      title: '',
+    };
+    dispatch({ type: 'CLEAN_POST_STATE', post: post });
   };
 }

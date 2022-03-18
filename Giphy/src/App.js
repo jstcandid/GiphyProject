@@ -1,8 +1,10 @@
 import './App.css';
 import { GiphyList } from './components/GiphyList/GiphyList';
 import { Header } from './components/Header/Header';
+import { FullPost } from './components/FullPost/FullPost';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { RootRouter } from './navigation/RootRouter';
 
 const themeDark = {
   titleColor: '#E5E5E5',
@@ -30,19 +32,11 @@ const themeLight = {
   onChange: '#016efc',
 };
 
-// export const Context = createContext({
-//   isDark: false,
-//   changeIsDark: () => {},
-//   theme: themeLight,
-// });
-
 function App() {
   return (
     <Provider store={store}>
       <div>
-        <Header />
-
-        <GiphyList />
+        <RootRouter />
       </div>
     </Provider>
   );

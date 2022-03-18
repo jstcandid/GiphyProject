@@ -1,0 +1,59 @@
+.container {
+  margin-top: 300px;
+  max-width: 1250px;
+  width: 100%;
+  padding: 0;
+  margin: auto;
+}
+
+.wrapper {
+  background-color: aliceblue;
+  display: flex;
+  width: 1000px;
+  margin: auto;
+}
+
+.image {
+  width: 500px;
+  height: 80vh;
+  object-fit: fill;
+}
+
+.save {
+  color: white;
+  width: 20%;
+  height: 40px;
+  border-radius: 20px;
+  font-weight: 700;
+  border: 1px brown solid;
+  background: rgb(231, 13, 13);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 2vw;
+}
+.button_container {
+  display: flex;
+  justify-content: end;
+}
+
+.username {
+  margin-top: 2vh;
+  font-size: large;
+}
+.username_val {
+  margin-top: 2vh;
+  font-size: large;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.title {
+  margin-top: 20vh;
+  font-size: large;
+  font-style: italic;
+  font-weight: 500;
+}
