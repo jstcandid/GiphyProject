@@ -8,14 +8,21 @@ export interface IPost {
   title: string;
   size: number;
   height: number;
+  showSave: boolean;
 }
 export interface IPostsState {
   posts: IPost[];
   post: IPost;
+  savedPosts: IPost[];
 }
 
 const defaultState: IPostsState = {
   posts: [],
+  savedPosts: JSON.parse(
+    typeof localStorage['savedPosts'] == 'undefined'
+      ? []
+      : localStorage['savedPosts']
+  ),
   post: {
     type: '',
     id: '',
@@ -24,6 +31,7 @@ const defaultState: IPostsState = {
     title: '',
     size: 0,
     height: 0,
+    showSave: true,
   },
 };
 
@@ -36,6 +44,17 @@ export function postsReducer(state = defaultState, action: any) {
     return { ...state, post: action.post };
   } else if (action.type === ACTIONS.CLEAN_POST_STATE) {
     return { ...state, post: action.post };
+  } else if (action.type === ACTIONS.SAVE_POST) {
+    localStorage.setItem(
+      'savedPosts',
+      JSON.stringify([...state.savedPosts, action.savedPosts])
+    );
+    const posts = JSON.parse(
+      typeof localStorage['savedPosts'] == 'undefined'
+        ? null
+        : localStorage['savedPosts']
+    );
+    return { ...state, savedPosts: [...state.savedPosts, action.savedPosts] };
   }
   return state;
 }

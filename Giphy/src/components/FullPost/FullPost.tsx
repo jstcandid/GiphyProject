@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { cleanPostState, fetchPost } from '../../redux/actions/postActions';
-import { IPost } from '../../redux/reducers/postsReducer';
+import { IPost, IPostsState } from '../../redux/reducers/postsReducer';
 import { IState } from '../../redux/store';
 import { Button } from '../Button/Button';
 import { GiphyList } from '../GiphyList/GiphyList';
@@ -23,7 +23,6 @@ export const FullPost = () => {
   };
 
   useEffect(() => {
-    console.log(post);
     getPost();
     return () => {
       dispatch(cleanPostState());

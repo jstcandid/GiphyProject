@@ -30,10 +30,10 @@ export function Input({
 }: IProps) {
   return (
     <>
-      <p>{text}</p>
+      {text ? <p>{text}</p> : null}
       <input
         style={properties}
-        className={`${className} ${error ? styles.error : ''}`}
+        className={` ${error ? styles.error : ''} ${className}`}
         onChange={onChange}
         onKeyDown={onKeyDown}
         type={type ? type : 'text'}

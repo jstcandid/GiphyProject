@@ -12,6 +12,7 @@
   transform: translateX(-10%);
   padding: 10px 0;
   box-shadow: 0.2em 0 0.4em gray;
+  z-index: 2000;
 }
 
 .navbar {

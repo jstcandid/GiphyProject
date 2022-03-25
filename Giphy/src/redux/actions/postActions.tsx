@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { IPost } from '../reducers/postsReducer';
 
 const key = 'LCQTJ3sO5PH4lYcdvY06o7KW5iIoWRfO';
 
@@ -74,5 +75,11 @@ export function cleanPostState() {
       title: '',
     };
     dispatch({ type: 'CLEAN_POST_STATE', post: post });
+  };
+}
+
+export function saveGif(postToAdd: IPost) {
+  return (dispatch: Dispatch) => {
+    dispatch({ type: 'SAVE_POST', savedPosts: postToAdd });
   };
 }

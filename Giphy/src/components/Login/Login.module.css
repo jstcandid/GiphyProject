@@ -12,12 +12,12 @@
   right: 0;
   width: 25vw;
   transform: translate(-50%, -50%);
-
   box-shadow: 0.2em 0 0.4em gray;
   padding: 40px 10px;
 }
 
 .input {
+  margin: 20px 0;
   max-width: 250px;
   width: 100%;
   height: 50px;
