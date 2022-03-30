@@ -7,10 +7,11 @@
 }
 
 .wrapper {
-  background-color: aliceblue;
+  background-color: rgb(251, 224, 208);
   display: flex;
   width: 1000px;
   margin: auto;
+  border-radius: 20px;
 }
 
 .image {
@@ -41,6 +42,7 @@
   width: 100%;
   margin-left: 2vw;
 }
+
 .button_container {
   display: flex;
   justify-content: end;

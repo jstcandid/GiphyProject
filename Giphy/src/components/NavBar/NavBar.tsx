@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { signOut } from '../../redux/actions/authActions';
 import { IState } from '../../redux/store';
 
@@ -12,7 +12,7 @@ export function NavBar() {
     (state: IState) => state.authReducer
   );
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const getUsername = (email: string) => {
     return email.substring(0, email.indexOf('@'));
   };
@@ -37,7 +37,12 @@ export function NavBar() {
             </div>
 
             <div
-              onClick={() => dispatch(signOut())}
+              onClick={() => {
+                dispatch(signOut());
+                if (typeof localStorage['currentUser'] == 'undefined') {
+                  history.push('/');
+                }
+              }}
               className={styles.navbar_item}
             >
               <p className={styles.navbar_text_items}>Sign Out</p>

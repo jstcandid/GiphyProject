@@ -39,10 +39,10 @@ export const register = (registerData: IRegisterData) => {
       localStorage.setItem(`users`, JSON.stringify(users));
 
       dispatch(registerSuccess(registerData));
-      alert('Registered successfull');
+      localStorage.setItem('registered', JSON.stringify(true));
     } catch (error: any) {
-      alert('User with such email alredy exists');
       dispatch(registerFailure(error));
+      localStorage.setItem('registered', JSON.stringify(false));
     }
   };
 };
@@ -91,11 +91,10 @@ export const login = (profile: ILoginData) => {
         throw 'Check your password and email address or register first';
       }
       localStorage.setItem(`currentUser`, JSON.stringify(profile));
-      alert('Logged in');
-
       dispatch(loginSuccess(profile));
+      localStorage.setItem('loggedIn', JSON.stringify(true));
     } catch (error) {
-      alert(error);
+      localStorage.setItem('loggedIn', JSON.stringify(false));
       dispatch(registerFailure(error));
     }
   };
@@ -109,7 +108,6 @@ export const signOut = () => {
         password: '',
       };
       localStorage.removeItem('currentUser');
-
       dispatch(signOutSuccess(clearProfile));
     } catch (error) {
       alert(error);

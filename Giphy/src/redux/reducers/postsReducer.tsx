@@ -16,12 +16,16 @@ export interface IPostsState {
   savedPosts: IPost[];
 }
 
+const email: string = JSON.parse(
+  typeof localStorage['currentUser'] == 'undefined'
+    ? '{}'
+    : localStorage['currentUser']
+).email;
+
 const defaultState: IPostsState = {
   posts: [],
   savedPosts: JSON.parse(
-    typeof localStorage['savedPosts'] == 'undefined'
-      ? []
-      : localStorage['savedPosts']
+    typeof localStorage[email] == 'undefined' ? '[]' : localStorage[email]
   ),
   post: {
     type: '',
@@ -45,16 +49,11 @@ export function postsReducer(state = defaultState, action: any) {
   } else if (action.type === ACTIONS.CLEAN_POST_STATE) {
     return { ...state, post: action.post };
   } else if (action.type === ACTIONS.SAVE_POST) {
-    localStorage.setItem(
-      'savedPosts',
-      JSON.stringify([...state.savedPosts, action.savedPosts])
-    );
-    const posts = JSON.parse(
-      typeof localStorage['savedPosts'] == 'undefined'
-        ? null
-        : localStorage['savedPosts']
-    );
-    return { ...state, savedPosts: [...state.savedPosts, action.savedPosts] };
+    return { ...state, savedPosts: action.savedPosts };
+  } else if (action.type === ACTIONS.UPDATE_SAVE) {
+    return { ...state, savedPosts: action.savedPosts };
+  } else if (action.type === ACTIONS.REMOVE_POST) {
+    return { ...state, savedPosts: action.savedPosts };
   }
   return state;
 }

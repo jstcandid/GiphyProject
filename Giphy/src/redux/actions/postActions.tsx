@@ -17,6 +17,7 @@ export function fetchPosts() {
         url: post.images.original.url,
         username: post.username,
         title: post.title,
+        showSave: true,
       };
     });
 
@@ -80,6 +81,50 @@ export function cleanPostState() {
 
 export function saveGif(postToAdd: IPost) {
   return (dispatch: Dispatch) => {
-    dispatch({ type: 'SAVE_POST', savedPosts: postToAdd });
+    const email: string = JSON.parse(
+      typeof localStorage['currentUser'] == 'undefined'
+        ? '{}'
+        : localStorage['currentUser']
+    ).email;
+    const posts = JSON.parse(
+      typeof localStorage[email] == 'undefined' ? '[]' : localStorage[email]
+    );
+    localStorage.setItem(email, JSON.stringify([...posts, postToAdd]));
+
+    dispatch({ type: 'SAVE_POST', savedPosts: [...posts, postToAdd] });
+  };
+}
+
+export function removeGif(postToAdd: IPost) {
+  return (dispatch: Dispatch) => {
+    const email: string = JSON.parse(
+      typeof localStorage['currentUser'] == 'undefined'
+        ? '{}'
+        : localStorage['currentUser']
+    ).email;
+    const posts = JSON.parse(
+      typeof localStorage[email] == 'undefined' ? '[]' : localStorage[email]
+    );
+
+    const newPosts = posts.filter((item: IPost) => item.id !== postToAdd.id);
+
+    localStorage.setItem(email, JSON.stringify(newPosts));
+
+    dispatch({ type: 'REMOVE_POST', savedPosts: newPosts });
+  };
+}
+
+export function updateState() {
+  return async (dispatch: Dispatch) => {
+    const email: string = JSON.parse(
+      typeof localStorage['currentUser'] == 'undefined'
+        ? '{}'
+        : localStorage['currentUser']
+    ).email;
+    const posts = JSON.parse(
+      typeof localStorage[email] == 'undefined' ? '[]' : localStorage[email]
+    );
+
+    dispatch({ type: 'UPDATE_SAVE', savedPosts: posts });
   };
 }

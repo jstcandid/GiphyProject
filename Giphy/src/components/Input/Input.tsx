@@ -1,10 +1,10 @@
-import styles from './Input.module.css';
+import styles_inner from './Input.module.css';
 import { KeyboardEventHandler } from 'react';
 
 import { ChangeEventHandler } from 'react';
 
 interface IProps {
-  properties?: React.CSSProperties;
+  styles?: React.CSSProperties;
   className?: string;
   value: string;
   label: string;
@@ -18,7 +18,7 @@ interface IProps {
 
 export function Input({
   className,
-  properties,
+  styles,
   error,
   value,
   text,
@@ -32,14 +32,14 @@ export function Input({
     <>
       {text ? <p>{text}</p> : null}
       <input
-        style={properties}
-        className={` ${error ? styles.error : ''} ${className}`}
+        style={styles}
+        className={` ${error ? styles_inner.error : ''} ${className}`}
         onChange={onChange}
         onKeyDown={onKeyDown}
         type={type ? type : 'text'}
         placeholder={value}
       />
-      {error ? <p className={`${styles.p_error}`}>{error}</p> : null}
+      {error ? <p className={`${styles_inner.p_error}`}>{error}</p> : null}
     </>
   );
 }

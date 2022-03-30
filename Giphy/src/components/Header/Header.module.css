@@ -1,3 +1,10 @@
+.container {
+  max-width: 1450px;
+  width: 100%;
+  margin: auto;
+  padding: 0;
+}
+
 .header {
   display: flex;
   align-items: flex-end;
@@ -11,6 +18,7 @@
 
 .logo {
   cursor: pointer;
+  width: 60px;
 }
 
 .input {

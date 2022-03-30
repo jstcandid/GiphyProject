@@ -8,7 +8,7 @@ import { GiphyList } from '../components/GiphyList/GiphyList';
 import { Header } from '../components/Header/Header';
 import { Login } from '../components/Login/Login';
 import { Registration } from '../components/Registration/Registration';
-import { IState } from '../redux/store';
+import styles from './RootRouter.module.css';
 import { RegSuccess } from '../components/RegSuccess/RegSuccess';
 
 export const RootRouter = () => {

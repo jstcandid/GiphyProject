@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { saveGif } from '../../redux/actions/postActions';
+import { removeGif, saveGif } from '../../redux/actions/postActions';
 import { IPost } from '../../redux/reducers/postsReducer';
 
 import { Button } from '../Button/Button';
@@ -32,7 +32,19 @@ export function GiphCard(item: IPost) {
               ></Button>
             </div>
           </div>
-        ) : null}
+        ) : (
+          <div className={`${styles.hover_background}`} onClick={() => {}}>
+            <div className={`${styles.btn_container}`}>
+              <Button
+                text={'Remove'}
+                onClick={() => {
+                  dispatch(removeGif(item));
+                }}
+                className={styles.button_remove}
+              ></Button>
+            </div>
+          </div>
+        )}
         <img src={item.url} alt={item.title} />
         <div className={`${styles.text}`}>
           <p className={`${styles.title}`}>{item.title}</p>
