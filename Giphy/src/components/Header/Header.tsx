@@ -1,18 +1,19 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
-import { searchGifs } from '../../redux/actions/postActions';
-import { IState } from '../../redux/store';
-import { Button } from '../Button/Button';
-import { Input } from '../Input/Input';
-import { NavBar } from '../NavBar/NavBar';
-import styles from './Header.module.css';
-import logo from './g.svg';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
+import { searchGifs } from "../../redux/actions/postActions";
+import { IState } from "../../redux/store";
+import { Button } from "../Button/Button";
+import { Input } from "../Input/Input";
+import { NavBar } from "../NavBar/NavBar";
+import styles from "./Header.module.css";
+import logo from "./g.svg";
 
 export function Header() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
+
   const { isLoggedIn, email } = useSelector(
     (state: IState) => state.authReducer
   );
@@ -29,7 +30,7 @@ export function Header() {
 
   const onKeyDown = useCallback(
     (event) => {
-      if (event.key === 'Enter') {
+      if (event.key === "Enter") {
         dispatch(searchGifs(search));
       }
     },
@@ -40,16 +41,16 @@ export function Header() {
     <div className={`${styles.container}`}>
       <div className={`${styles.header}`}>
         <img
-          onClick={() => history.push('/')}
+          onClick={() => history.push("/")}
           className={`${styles.logo}`}
           src={logo}
-          alt='Giphy logo'
+          alt="Giphy logo"
         />
         <div className={`${styles.input}`}>
           <Input
-            value='Search...'
+            value="Search..."
             className={styles.input_item}
-            label='label'
+            label="label"
             onChange={onChange}
             onKeyDown={onKeyDown}
           />
@@ -64,23 +65,23 @@ export function Header() {
 
             <Button
               className={styles.button}
-              text='˅'
+              text="˅"
               onClick={() => setOpen(!isOpen)}
             />
           </div>
         ) : (
           <div className={`${styles.buttons}`}>
-            <NavLink to={'/login'}>
+            <NavLink to={"/login"}>
               <Button
                 className={styles.button_login}
-                text='Log in'
+                text="Log in"
                 onClick={() => {}}
               />
             </NavLink>
-            <NavLink to={'/registration'}>
+            <NavLink to={"/registration"}>
               <Button
                 className={styles.button_signup}
-                text='Sign Up'
+                text="Sign Up"
                 onClick={() => {}}
               />
             </NavLink>
@@ -89,7 +90,7 @@ export function Header() {
 
         {isOpen ? (
           <div>
-            <NavBar />
+            <NavBar closeNavbar={() => setOpen(false)} />
           </div>
         ) : null}
       </div>
