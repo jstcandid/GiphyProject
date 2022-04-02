@@ -1,15 +1,44 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { searchGifs } from '../../redux/actions/postActions';
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
+import { NavBar } from '../NavBar/NavBar';
 import styles from './Header.module.css';
 
 export function Header() {
+  const [search, setSearch] = useState('');
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [isOpen, setOpen] = useState(false);
+
+  const onChange = useCallback(
+    (event) => {
+      setSearch(event.target.value);
+      dispatch(searchGifs(search));
+    },
+    [search]
+  );
+
+  const onKeyDown = useCallback(
+    (event) => {
+      if (event.key === 'Enter') {
+        dispatch(searchGifs(search));
+      }
+    },
+    [search]
+  );
+
   return (
     <div className={`${styles.header}`}>
       <svg
+        onClick={() => history.push('/')}
         className={`${styles.logo}`}
-        width='60px'
-        height='60px'
         viewBox='0 0 24 24'
+        width='70px'
+        height='70px'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
       >
@@ -29,31 +58,22 @@ export function Header() {
       <div className={`${styles.input}`}>
         <Input
           value='Search...'
-          height='60px'
-          width='80vw'
+          className={styles.input_item}
           label='label'
-          onChange={() => {}}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
         />
       </div>
       <div className={`${styles.buttons}`}>
-        <Button
-          fontSize='20px'
-          border='2px solid rgb(195, 107, 67)'
-          background='#f1e8e4'
-          width='5vh'
-          height='5vh'
-          text='Z'
-          onClick={() => {}}
-        />
+        <Button className={styles.button_person} text='S' onClick={() => {}} />
 
         <Button
-          fontSize='20px'
-          width='5vh'
-          height='5vh'
+          className={styles.button}
           text='˅'
-          onClick={() => {}}
+          onClick={() => setOpen(!isOpen)}
         />
       </div>
+      {isOpen ? <NavBar /> : null}
     </div>
   );
 }

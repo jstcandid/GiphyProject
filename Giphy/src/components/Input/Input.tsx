@@ -4,8 +4,8 @@ import { KeyboardEventHandler } from 'react';
 import { ChangeEventHandler } from 'react';
 
 interface IProps {
-  width?: string;
-  height?: string;
+  properties?: React.CSSProperties;
+  className?: string;
   value: string;
   label: string;
   text?: string;
@@ -17,8 +17,8 @@ interface IProps {
 }
 
 export function Input({
-  width,
-  height,
+  className,
+  properties,
   error,
   value,
   text,
@@ -29,17 +29,17 @@ export function Input({
   onChange,
 }: IProps) {
   return (
-    <div className={`${styles.input}`}>
+    <>
       <p>{text}</p>
       <input
-        style={{ width: width, height: height, backgroundColor: background }}
-        className={`${styles.input_item} ${error ? styles.error : ''}`}
+        style={properties}
+        className={`${className} ${error ? styles.error : ''}`}
         onChange={onChange}
         onKeyDown={onKeyDown}
         type={type ? type : 'text'}
         placeholder={value}
       />
       {error ? <p className={`${styles.p_error}`}>{error}</p> : null}
-    </div>
+    </>
   );
 }

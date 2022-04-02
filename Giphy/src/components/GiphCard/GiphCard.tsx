@@ -1,16 +1,10 @@
+import { useHistory } from 'react-router-dom';
+import { IPost } from '../../redux/reducers/postsReducer';
 import styles from './GiphCard.module.css';
 
-export interface IPost {
-  type: string;
-  id: string;
-  url: string;
-  username: string;
-  title: string;
-  size: number;
-  height: number;
-}
-
 export function GiphCard({ size, type, id, url, username, title }: IPost) {
+  const history = useHistory();
+
   return (
     <>
       <div
@@ -18,6 +12,9 @@ export function GiphCard({ size, type, id, url, username, title }: IPost) {
           gridRowEnd: `span ${size}`,
         }}
         className={`${styles.card}`}
+        onClick={() => {
+          history.push('/post/' + id);
+        }}
       >
         <img src={url} alt={title} />
         <div className={`${styles.text}`}>
