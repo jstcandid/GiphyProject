@@ -2,6 +2,7 @@
   padding: 0;
   margin: 15px 10px;
   border-radius: 20px;
+  position: relative;
 }
 
 img {
@@ -28,4 +29,37 @@ img {
   flex-direction: column;
   justify-content: space-evenly;
   font-size: 20px;
+}
+
+.button {
+  margin-right: 10px;
+  color: white;
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  font-weight: 700;
+  border: 1px brown solid;
+  background: rgb(231, 13, 13);
+  cursor: pointer;
+  transition: filter 300ms;
+  position: absolute;
+  left: 100%;
+  transform: translateX(-100%);
+}
+
+.hover_background {
+  width: 100%;
+  height: 80%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.157);
+  opacity: 0;
+  border-radius: 20px;
+}
+
+.hover_background:hover {
+  opacity: 100%;
+}
+
+.button:hover {
+  filter: brightness(0.8);
 }

@@ -1,24 +1,19 @@
+import { fail } from 'assert';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import { fetchPosts } from '../../redux/actions/postActions';
 import { IPost } from '../../redux/reducers/postsReducer';
 import { IState } from '../../redux/store';
-import { Button } from '../Button/Button';
 import { GiphCard } from '../GiphCard/GiphCard';
-import styles from './GiphyList.module.css';
+import styles from './SavedPosts.module.css';
 
-export function GiphyList() {
+export function SavedPosts() {
   const dispatch = useDispatch();
-  const posts = useSelector((state: IState) => state.postsReducer.posts);
+  const posts = useSelector((state: IState) => state.postsReducer.savedPosts);
 
   const small_card = 29;
   const medium_card = 36;
   const large_card = 46;
-
-  useEffect(() => {
-    dispatch(fetchPosts());
-  }, []);
 
   return (
     <>
@@ -26,7 +21,7 @@ export function GiphyList() {
         {posts.map((item: IPost) => {
           return (
             <GiphCard
-              showSave={true}
+              showSave={false}
               height={item.height}
               size={
                 item.height < small_card * 10
@@ -45,11 +40,6 @@ export function GiphyList() {
           );
         })}
       </div>
-      <NavLink to={'/addpost'}>
-        <div className={`${styles.button}`}>
-          <Button className={styles.button_plus} text='+' onClick={() => {}} />
-        </div>
-      </NavLink>
     </>
   );
 }

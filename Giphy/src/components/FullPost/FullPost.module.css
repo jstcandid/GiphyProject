@@ -27,6 +27,12 @@
   font-weight: 700;
   border: 1px brown solid;
   background: rgb(231, 13, 13);
+  cursor: pointer;
+  transition: filter 300ms;
+}
+
+.save:hover {
+  filter: brightness(0.8);
 }
 
 .content {

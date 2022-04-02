@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  width: 100%;
+  margin-top: 200px;
+  justify-content: center;
+}
+
+.text {
+  font-size: 24px;
+  color: brown;
+  font-weight: 900;
+  font-style: italic;
+  width: 900px;
+}
