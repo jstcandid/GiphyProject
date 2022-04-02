@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { AddPost } from '../components/AddPost/AddPost';
 import { FullPost } from '../components/FullPost/FullPost';
 import { SavedPosts } from '../components/SavedPosts/SavedPosts';
@@ -8,14 +6,16 @@ import { GiphyList } from '../components/GiphyList/GiphyList';
 import { Header } from '../components/Header/Header';
 import { Login } from '../components/Login/Login';
 import { Registration } from '../components/Registration/Registration';
-import styles from './RootRouter.module.css';
+import { Loader } from '../components/Loader/Loader';
 import { RegSuccess } from '../components/RegSuccess/RegSuccess';
+import { AddedPosts } from '../components/AddedPosts/AddedPosts';
 
 export const RootRouter = () => {
   return (
     <BrowserRouter>
       <Header />
       <Switch>
+        <Route path='/loader' component={Loader} exact></Route>
         <Route path='/' component={GiphyList} exact></Route>
         <Route path='/post/:postId' component={FullPost} exact></Route>
         <Route path='/login' component={Login} exact></Route>
@@ -27,6 +27,7 @@ export const RootRouter = () => {
           component={RegSuccess}
           exact
         ></Route>
+        <Route path='/added' component={AddedPosts} exact></Route>
       </Switch>
     </BrowserRouter>
   );

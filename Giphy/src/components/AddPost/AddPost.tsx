@@ -1,10 +1,81 @@
+import { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { addPost } from '../../redux/actions/postActions';
+import { IPost } from '../../redux/reducers/postsReducer';
+import { IState } from '../../redux/store';
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
 import styles from './AddPost.module.css';
-import image from './addPost.png';
+import imageAdd from './addPost.png';
 import menu from './dotsMenu.svg';
+const { v4: uuidv4 } = require('uuid');
 
 export function AddPost() {
+  const sizesArray = [29, 36, 46];
+  const dispatch = useDispatch();
+  const { email } = useSelector((state: IState) => state.authReducer);
+  const [image, setImage] = useState(imageAdd);
+  const [imageFile, setImageFile] = useState<Blob | null>(null);
+  const history = useHistory();
+
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [link, setLink] = useState('');
+
+  const onChangeTitle = useCallback(
+    (event) => {
+      setTitle(event.target.value);
+    },
+    [title]
+  );
+
+  const onChangeDesc = useCallback(
+    (event) => {
+      setDescription(event.target.value);
+    },
+    [description]
+  );
+  const onChangeLink = useCallback(
+    (event) => {
+      setLink(event.target.value);
+    },
+    [link]
+  );
+
+  const onLoad = (event: any) => {
+    setImageFile(event.target.files[0]);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+
+    reader.onload = (event: any) => {
+      setImage(event.target.result);
+    };
+  };
+
+  const getUsername = (email: string) => {
+    return email.substring(0, email.indexOf('@'));
+  };
+
+  const addPosts = () => {
+    const randomInt = sizesArray[Math.floor(Math.random() * sizesArray.length)];
+
+    const post: IPost = {
+      height: randomInt * 10,
+      id: uuidv4(),
+      showSave: false,
+      size: randomInt,
+      title: title,
+      type: 'gif',
+      url: image,
+      username: getUsername(email),
+      added: true,
+    };
+
+    dispatch(addPost(post));
+    history.push('/added');
+  };
   return (
     <>
       <div className={`${styles.container}`}>
@@ -12,17 +83,27 @@ export function AddPost() {
           <img src={menu} className={`${styles.menu}`} alt='React Logo' />
           <Button
             text='Save'
-            onClick={() => {}}
+            onClick={addPosts}
             className={styles.savebutton}
           />
         </div>
         <div className={`${styles.content}`}>
-          <img className={`${styles.img}`} src={image} alt='' />
+          <div className={`${styles.img}`}>
+            <input
+              className={`${styles.input}`}
+              type='file'
+              accept='image/*'
+              onChange={onLoad}
+              onClick={() => {}}
+            />
+            <img className={`${styles.img}`} src={image} alt='' />
+          </div>
+
           <div className={`${styles.text_content}`}>
             <div>
               <Input
                 value='Add title'
-                onChange={() => {}}
+                onChange={onChangeTitle}
                 label=''
                 className={styles.name}
               />
@@ -33,15 +114,15 @@ export function AddPost() {
             <div>
               <div className={`${styles.user}`}>
                 <Button
-                  text='S'
+                  text={email.charAt(0).toUpperCase()}
                   onClick={() => {}}
                   className={styles.user_icon}
                 />
-                <p className={`${styles.username}`}>someperson</p>
+                <p className={`${styles.username}`}>{getUsername(email)}</p>
               </div>
               <Input
                 value='Add post description'
-                onChange={() => {}}
+                onChange={onChangeDesc}
                 label=''
                 className={styles.description}
               />
@@ -54,7 +135,7 @@ export function AddPost() {
             <Input
               className={styles.link}
               value='Add link'
-              onChange={() => {}}
+              onChange={onChangeLink}
               label={''}
             />
           </div>

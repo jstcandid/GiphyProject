@@ -6,13 +6,20 @@
   background-color: #fafaf8;
   border: 3px solid transparent;
   border-radius: 5%;
-  top: 80px;
+  top: 20px;
   right: 0;
   width: 320px;
   transform: translateX(-10%);
   padding: 10px 0;
   box-shadow: 0.2em 0 0.4em gray;
-  z-index: 2000;
+  z-index: 2;
+}
+
+.background {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
 }
 
 .navbar {

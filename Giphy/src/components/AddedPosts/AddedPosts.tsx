@@ -1,12 +1,15 @@
+import { fail } from 'assert';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { fetchPosts } from '../../redux/actions/postActions';
 import { IPost } from '../../redux/reducers/postsReducer';
 import { IState } from '../../redux/store';
 import { GiphCard } from '../GiphCard/GiphCard';
-import styles from './SavedPosts.module.css';
+import styles from './AddedPosts.module.css';
 
-export function SavedPosts() {
-  const posts = useSelector((state: IState) => state.postsReducer.savedPosts);
+export function AddedPosts() {
+  const dispatch = useDispatch();
+  const posts = useSelector((state: IState) => state.postsReducer.myPosts);
 
   const small_card = 29;
   const medium_card = 36;
@@ -17,7 +20,7 @@ export function SavedPosts() {
       {posts.length === 0 ? (
         <div className={`${styles.noposts}`}>
           <p className={`${styles.noposts_p}`}>
-            You don't have any saved posts yet :(
+            You don't have any posts yet :(
           </p>
         </div>
       ) : (
@@ -28,9 +31,9 @@ export function SavedPosts() {
                 showSave={false}
                 height={item.height}
                 size={
-                  item.height < small_card * 10
+                  item.height <= small_card * 10
                     ? small_card
-                    : item.height < medium_card * 10
+                    : item.height <= medium_card * 10
                     ? medium_card
                     : large_card
                 }
@@ -40,7 +43,7 @@ export function SavedPosts() {
                 url={item.url}
                 username={item.username}
                 title={item.title}
-                added={false}
+                added={true}
               />
             );
           })}

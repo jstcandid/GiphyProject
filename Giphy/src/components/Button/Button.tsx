@@ -1,9 +1,10 @@
-import styles from './Button.module.css';
+import { MouseEventHandler } from 'react';
+
 interface IProps {
   properties?: React.CSSProperties;
   className?: string;
   text: string;
-  onClick: () => void;
+  onClick: MouseEventHandler;
 }
 
 export function Button({

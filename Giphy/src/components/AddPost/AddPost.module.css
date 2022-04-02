@@ -37,8 +37,16 @@
   width: 100%;
   max-width: 300px;
   height: 550px;
-  cursor: pointer;
   object-fit: cover;
+}
+
+.input {
+  margin-top: 50px;
+  width: 100%;
+  max-width: 300px;
+  height: 550px;
+  cursor: pointer;
+  opacity: 0;
 }
 
 .text_content {
@@ -139,4 +147,14 @@
 .menu {
   width: 20px;
   cursor: pointer;
+}
+
+.input {
+  width: 100%;
+  max-width: 300px;
+  height: 550px;
+  position: absolute;
+  transform: translateY(-69px);
+  z-index: 100;
+  opacity: 0;
 }

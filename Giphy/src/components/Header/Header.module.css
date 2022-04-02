@@ -5,6 +5,12 @@
   padding: 0;
 }
 
+.back {
+  width: 100vw;
+  position: absolute;
+  z-index: 10;
+}
+
 .header {
   display: flex;
   align-items: flex-end;

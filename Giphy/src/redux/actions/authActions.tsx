@@ -1,4 +1,3 @@
-import { useHistory } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
 import { ACTIONS } from '../constants';
