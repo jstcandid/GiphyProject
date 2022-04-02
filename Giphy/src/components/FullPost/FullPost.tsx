@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import { cleanPostState, fetchPost } from '../../redux/actions/postActions';
-import { IPost, IPostsState } from '../../redux/reducers/postsReducer';
+import { useParams } from 'react-router-dom';
+import {
+  cleanPostState,
+  fetchPost,
+  saveGif,
+} from '../../redux/actions/postActions';
+
 import { IState } from '../../redux/store';
 import { Button } from '../Button/Button';
 import { GiphyList } from '../GiphyList/GiphyList';
-import { Input } from '../Input/Input';
 import styles from './FullPost.module.css';
 
 type Params = {
@@ -40,7 +43,9 @@ export const FullPost = () => {
                 <Button
                   className={styles.save}
                   text='Save'
-                  onClick={() => {}}
+                  onClick={() => {
+                    dispatch(saveGif(post));
+                  }}
                 />
               </div>
 

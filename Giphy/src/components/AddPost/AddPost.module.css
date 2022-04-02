@@ -135,3 +135,8 @@
 .link:focus {
   border-bottom: 2px rgb(37, 109, 204) solid;
 }
+
+.menu {
+  width: 20px;
+  cursor: pointer;
+}
