@@ -1,8 +1,13 @@
-import { useCallback } from 'react';
+import { Console } from 'console';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { removeGif, saveGif } from '../../redux/actions/postActions';
+import {
+  removeAdded,
+  removeGif,
+  saveGif,
+} from '../../redux/actions/postActions';
 import { IPost } from '../../redux/reducers/postsReducer';
+import { IState } from '../../redux/store';
 
 import { Button } from '../Button/Button';
 import styles from './GiphCard.module.css';
@@ -10,6 +15,7 @@ import styles from './GiphCard.module.css';
 export function GiphCard(item: IPost) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state: IState) => state.authReducer);
 
   return (
     <>
@@ -18,33 +24,50 @@ export function GiphCard(item: IPost) {
           gridRowEnd: `span ${item.size}`,
         }}
         className={`${styles.card}`}
-        onClick={() => history.push('/post/' + item.id)}
+        onClick={() => {
+          history.push('/post/' + item.id);
+          history.go(0);
+        }}
       >
-        {item.showSave ? (
-          <div className={`${styles.hover_background}`} onClick={() => {}}>
-            <div className={`${styles.btn_container}`}>
-              <Button
-                text={'Save'}
-                onClick={() => {
-                  dispatch(saveGif(item));
-                }}
-                className={styles.button}
-              ></Button>
-            </div>
+        {isLoggedIn ? (
+          <div>
+            {item.showSave ? (
+              <div className={`${styles.hover_background}`} onClick={() => {}}>
+                <div className={`${styles.btn_container}`}>
+                  <Button
+                    text={'Save'}
+                    onClick={(event) => {
+                      event.stopPropagation();
+
+                      dispatch(saveGif(item));
+                    }}
+                    className={styles.button}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className={`${styles.hover_background}`} onClick={() => {}}>
+                <div className={`${styles.btn_container}`}>
+                  <Button
+                    text={'Remove'}
+                    onClick={
+                      item.added
+                        ? (event) => {
+                            event.stopPropagation();
+                            dispatch(removeAdded(item));
+                          }
+                        : (event) => {
+                            event.stopPropagation();
+                            dispatch(removeGif(item));
+                          }
+                    }
+                    className={styles.button_remove}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className={`${styles.hover_background}`} onClick={() => {}}>
-            <div className={`${styles.btn_container}`}>
-              <Button
-                text={'Remove'}
-                onClick={() => {
-                  dispatch(removeGif(item));
-                }}
-                className={styles.button_remove}
-              ></Button>
-            </div>
-          </div>
-        )}
+        ) : null}
         <img src={item.url} alt={item.title} />
         <div className={`${styles.text}`}>
           <p className={`${styles.title}`}>{item.title}</p>

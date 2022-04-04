@@ -1,13 +1,48 @@
 import { Dispatch } from 'redux';
 import { IPost } from '../reducers/postsReducer';
+import { IState } from '../store';
 
 const key = 'LCQTJ3sO5PH4lYcdvY06o7KW5iIoWRfO';
 
+const LIMIT = 50;
 export function fetchPosts() {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: () => IState) => {
+    const offset = getState().postsReducer.offset;
+
+    if (offset === 0) {
+      const response = await fetch(
+        `https://api.giphy.com/v1/gifs/trending?api_key=${key}&limit=${LIMIT}&offset=${offset}`
+      );
+      const data = await response.json();
+      const result = await data.data.map((post: any) => {
+        return {
+          height: post.images.original.height,
+          type: post.type,
+          id: post.id,
+          url: post.images.original.url,
+          username: post.username,
+          title: post.title,
+          showSave: true,
+        };
+      });
+
+      dispatch({ type: 'FETCH_POSTS', posts: result, offset: offset + LIMIT });
+    }
+  };
+}
+
+export function fetchMorePosts() {
+  return async (dispatch: Dispatch, getState: () => IState) => {
+    const offset = getState().postsReducer.offset;
+
+    const posts = getState().postsReducer.posts;
+
     const response = await fetch(
-      `https://api.giphy.com/v1/gifs/trending?api_key=${key}&limit=100`
+      `https://api.giphy.com/v1/gifs/trending?api_key=${key}&limit=${LIMIT}&offset=${
+        offset + LIMIT
+      }`
     );
+
     const data = await response.json();
     const result = await data.data.map((post: any) => {
       return {
@@ -21,7 +56,11 @@ export function fetchPosts() {
       };
     });
 
-    dispatch({ type: 'FETCH_POSTS', posts: result });
+    dispatch({
+      type: 'FETCH_POSTS',
+      posts: [...posts, ...result],
+      offset: offset + LIMIT,
+    });
   };
 }
 
@@ -46,7 +85,7 @@ export function searchGifs(searchWord: string) {
   };
 }
 
-export function fetchPost(id: string) {
+export function fetchPost(id: string, isSaved: boolean) {
   return async (dispatch: Dispatch) => {
     const response = await fetch(
       `https://api.giphy.com/v1/gifs/${id}?api_key=${key}`
@@ -60,6 +99,7 @@ export function fetchPost(id: string) {
       url: data.data.images.original.url,
       username: data.data.username,
       title: data.data.title,
+      showSave: isSaved,
     };
     dispatch({ type: 'GET_POST', post: result });
   };
@@ -89,13 +129,24 @@ export function saveGif(postToAdd: IPost) {
     const posts = JSON.parse(
       typeof localStorage[email] == 'undefined' ? '[]' : localStorage[email]
     );
-    localStorage.setItem(email, JSON.stringify([...posts, postToAdd]));
+    const resPost = {
+      added: false,
+      height: postToAdd.height,
+      id: postToAdd.id,
+      showSave: !postToAdd.showSave,
+      size: postToAdd.size,
+      title: postToAdd.title,
+      type: postToAdd.type,
+      url: postToAdd.url,
+      username: postToAdd.username,
+    };
 
-    dispatch({ type: 'SAVE_POST', savedPosts: [...posts, postToAdd] });
+    localStorage.setItem(email, JSON.stringify([...posts, resPost]));
+    dispatch({ type: 'SAVE_POST', savedPosts: [...posts, resPost] });
   };
 }
 
-export function removeGif(postToAdd: IPost) {
+export function removeGif(postToRemove: IPost) {
   return (dispatch: Dispatch) => {
     const email: string = JSON.parse(
       typeof localStorage['currentUser'] == 'undefined'
@@ -106,7 +157,7 @@ export function removeGif(postToAdd: IPost) {
       typeof localStorage[email] == 'undefined' ? '[]' : localStorage[email]
     );
 
-    const newPosts = posts.filter((item: IPost) => item.id !== postToAdd.id);
+    const newPosts = posts.filter((item: IPost) => item.id !== postToRemove.id);
 
     localStorage.setItem(email, JSON.stringify(newPosts));
 
@@ -124,7 +175,54 @@ export function updateState() {
     const posts = JSON.parse(
       typeof localStorage[email] == 'undefined' ? '[]' : localStorage[email]
     );
+    const myposts = JSON.parse(
+      typeof localStorage[email + 'added'] == 'undefined'
+        ? '[]'
+        : localStorage[email + 'added']
+    );
 
-    dispatch({ type: 'UPDATE_SAVE', savedPosts: posts });
+    dispatch({ type: 'UPDATE_SAVE', savedPosts: posts, myPosts: myposts });
+  };
+}
+
+export function addPost(postToAdd: IPost) {
+  return (dispatch: Dispatch) => {
+    const email: string = JSON.parse(
+      typeof localStorage['currentUser'] == 'undefined'
+        ? '{}'
+        : localStorage['currentUser']
+    ).email;
+    const posts = JSON.parse(
+      typeof localStorage[email + 'added'] == 'undefined'
+        ? '[]'
+        : localStorage[email + 'added']
+    );
+    localStorage.setItem(
+      email + 'added',
+      JSON.stringify([...posts, postToAdd])
+    );
+    dispatch({ type: 'ADD_POST', myPosts: [...posts, postToAdd] });
+  };
+}
+
+export function removeAdded(postToRemove: IPost) {
+  return (dispatch: Dispatch) => {
+    const email: string = JSON.parse(
+      typeof localStorage['currentUser'] == 'undefined'
+        ? '{}'
+        : localStorage['currentUser']
+    ).email;
+
+    const posts = JSON.parse(
+      typeof localStorage[email + 'added'] == 'undefined'
+        ? '[]'
+        : localStorage[email + 'added']
+    );
+
+    const newPosts = posts.filter((item: IPost) => item.id !== postToRemove.id);
+
+    localStorage.setItem(email + 'added', JSON.stringify(newPosts));
+
+    dispatch({ type: 'REMOVE_ADDED', myPosts: newPosts });
   };
 }
