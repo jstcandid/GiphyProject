@@ -28,7 +28,7 @@ export function Header() {
     setOpen((isOpen) => !isOpen);
   };
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState('Search...');
   const dispatch = useDispatch();
   const history = useHistory();
   const { isLoggedIn, email } = useSelector(
@@ -47,6 +47,7 @@ export function Header() {
     (event) => {
       if (event.key === 'Enter') {
         dispatch(searchGifs(search));
+        setSearch('Search...');
       }
     },
     [search]
@@ -69,7 +70,7 @@ export function Header() {
           />
           <div className={`${styles.input}`}>
             <Input
-              value='Search...'
+              value={search}
               className={styles.input_item}
               label='label'
               onChange={onChange}

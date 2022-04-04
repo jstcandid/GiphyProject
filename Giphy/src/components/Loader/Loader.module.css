@@ -50,3 +50,8 @@
     border-width: 1px;
   }
 }
+
+.sp_container {
+  display: flex;
+  justify-content: center;
+}
