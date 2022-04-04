@@ -12,6 +12,7 @@ import menu from './dotsMenu.svg';
 const { v4: uuidv4 } = require('uuid');
 
 export function AddPost() {
+  const [isImage, setIsImage] = useState(true);
   const sizesArray = [29, 36, 46];
   const dispatch = useDispatch();
   const { email } = useSelector((state: IState) => state.authReducer);
@@ -44,6 +45,7 @@ export function AddPost() {
   );
 
   const onLoad = (event: any) => {
+    setIsImage(false);
     setImageFile(event.target.files[0]);
 
     const reader = new FileReader();
@@ -52,6 +54,7 @@ export function AddPost() {
     reader.onload = (event: any) => {
       setImage(event.target.result);
     };
+    setIsImage(true);
   };
 
   const getUsername = (email: string) => {
@@ -59,22 +62,28 @@ export function AddPost() {
   };
 
   const addPosts = () => {
-    const randomInt = sizesArray[Math.floor(Math.random() * sizesArray.length)];
+    if (imageFile) {
+      const randomInt =
+        sizesArray[Math.floor(Math.random() * sizesArray.length)];
 
-    const post: IPost = {
-      height: randomInt * 10,
-      id: uuidv4(),
-      showSave: false,
-      size: randomInt,
-      title: title,
-      type: 'gif',
-      url: image,
-      username: getUsername(email),
-      added: true,
-    };
+      const post: IPost = {
+        height: randomInt * 10,
+        id: uuidv4(),
+        showSave: false,
+        size: randomInt,
+        title: title,
+        type: 'gif',
+        url: image,
+        username: getUsername(email),
+        added: true,
+      };
 
-    dispatch(addPost(post));
-    history.push('/added');
+      dispatch(addPost(post));
+
+      history.push('/added');
+    } else {
+      setIsImage(false);
+    }
   };
   return (
     <>
@@ -96,7 +105,19 @@ export function AddPost() {
               onChange={onLoad}
               onClick={() => {}}
             />
-            <img className={`${styles.img}`} src={image} alt='' />
+            <img
+              style={
+                isImage
+                  ? {}
+                  : {
+                      border: '3px rgba(241, 46, 46, 0.746) solid',
+                      borderRadius: '10px',
+                    }
+              }
+              className={`${styles.img_inner}`}
+              src={image}
+              alt=''
+            />
           </div>
 
           <div className={`${styles.text_content}`}>

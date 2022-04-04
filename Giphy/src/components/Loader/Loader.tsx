@@ -6,9 +6,11 @@ import { ChangeEventHandler } from 'react';
 export function Loader() {
   return (
     <>
-      <div className={`${styles.spinner}`}>
-        <div></div>
-        <div></div>
+      <div className={`${styles.sp_container}`}>
+        <div className={`${styles.spinner}`}>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </>
   );
