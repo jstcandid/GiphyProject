@@ -121,19 +121,3 @@ const signOutSuccess = (profile: ILoginData) => {
     ...profile,
   };
 };
-
-// export const init = () => {
-//   return async (dispatch: Dispatch) => {
-//     try {
-//       const access = await localStorage.getItem('access');
-
-//       if (access) {
-//         const profile = await getProfile();
-
-//         if (profile) {
-//           dispatch(loginSuccess(profile));
-//         }
-//       }
-//     } catch (error) {}
-//   };
-// };
