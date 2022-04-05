@@ -6,8 +6,7 @@ import { GiphyList } from '../components/GiphyList/GiphyList';
 import { Header } from '../components/Header/Header';
 import { Login } from '../components/Login/Login';
 import { Registration } from '../components/Registration/Registration';
-import { Loader } from '../components/Loader/Loader';
-import { RegSuccess } from '../components/RegSuccess/RegSuccess';
+import { RegisterSuccess } from '../components/RegisterSuccess/RegisterSuccess';
 import { AddedPosts } from '../components/AddedPosts/AddedPosts';
 
 export const RootRouter = () => {
@@ -15,7 +14,6 @@ export const RootRouter = () => {
     <BrowserRouter>
       <Header />
       <Switch>
-        <Route path='/loader' component={Loader} exact></Route>
         <Route path='/' component={GiphyList} exact></Route>
         <Route path='/post/:postId' component={FullPost} exact></Route>
         <Route path='/login' component={Login} exact></Route>
@@ -24,7 +22,7 @@ export const RootRouter = () => {
         <Route path='/saved' component={SavedPosts} exact></Route>
         <Route
           path='/registration/success'
-          component={RegSuccess}
+          component={RegisterSuccess}
           exact
         ></Route>
         <Route path='/added' component={AddedPosts} exact></Route>

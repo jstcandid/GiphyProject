@@ -38,12 +38,8 @@ export const FullPost = () => {
 
   const showSave = checkIfSaved(params.postId);
 
-  const getPost = async () => {
-    dispatch(fetchPost(params.postId, showSave));
-  };
-
   useEffect(() => {
-    getPost();
+    dispatch(fetchPost(params.postId, showSave));
     return () => {
       dispatch(cleanPostState());
     };

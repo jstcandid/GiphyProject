@@ -6,7 +6,6 @@ import { IPost } from '../../redux/reducers/postsReducer';
 import { IState } from '../../redux/store';
 import { Button } from '../Button/Button';
 import { GiphCard } from '../GiphCard/GiphCard';
-import { SavedPosts } from '../SavedPosts/SavedPosts';
 import styles from './GiphyList.module.css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Loader } from '../Loader/Loader';
@@ -44,7 +43,6 @@ export function GiphyList() {
         next={loadMore}
         hasMore={true}
         loader={<Loader />}
-        // endMessage={}
       >
         <div className={`${styles.card_list}`}>
           {posts.map((item: IPost) => {

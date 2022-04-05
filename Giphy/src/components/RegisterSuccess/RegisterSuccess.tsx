@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import styles from './RegSuccess.module.css';
+import styles from './RegisterSuccess.module.css';
 
-export function RegSuccess() {
+export function RegisterSuccess() {
   return (
     <>
       <div className={`${styles.container}`}>
