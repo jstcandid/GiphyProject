@@ -12,6 +12,7 @@ interface IProps {
   error?: string;
   type?: string;
   background?: string;
+  placeholder?: string;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
@@ -25,6 +26,7 @@ export function Input({
   label,
   type,
   background,
+  placeholder,
   onKeyDown,
   onChange,
 }: IProps) {
@@ -37,7 +39,8 @@ export function Input({
         onChange={onChange}
         onKeyDown={onKeyDown}
         type={type ? type : 'text'}
-        placeholder={value}
+        placeholder={placeholder}
+        value={value}
       />
       {error ? <p className={`${styles_inner.p_error}`}>{error}</p> : null}
     </>

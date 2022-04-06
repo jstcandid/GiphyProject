@@ -16,9 +16,9 @@ export function GiphyList() {
     (state: IState) => state.postsReducer
   );
 
-  const small_card = 29;
-  const medium_card = 36;
-  const large_card = 46;
+  const small_card = 32;
+  const medium_card = 39;
+  const large_card = 49;
 
   useEffect(() => {
     dispatch(fetchPosts());
