@@ -64,14 +64,16 @@ export function Login() {
             errors.email ? { margin: '40px 0 0 0' } : { margin: '40px 0' }
           }
           label='label'
-          value='Email'
+          placeholder='Email'
+          value={email}
           className={`${styles.input}`}
           onChange={onChangeEmail}
           error={errors.email}
         />
         <Input
+          value={password}
           label='label'
-          value='Password'
+          placeholder='Password'
           className={`${styles.input}`}
           onChange={onChangePassword}
           type='password'

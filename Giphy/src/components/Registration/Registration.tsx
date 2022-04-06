@@ -84,7 +84,8 @@ export function Registration() {
       <p className={`${styles.ideas}`}>Find new ideas for inspiration</p>
       <Input
         label='label'
-        value='Email'
+        value={email}
+        placeholder='Email'
         styles={errors.email ? { margin: '40px 0 0 0' } : { margin: '40px 0' }}
         className={`${styles.input}`}
         onChange={onChangeEmail}
@@ -93,7 +94,8 @@ export function Registration() {
 
       <Input
         label='label'
-        value='Create password'
+        placeholder='Create password'
+        value={password}
         className={`${styles.input}`}
         onChange={onChangePassword}
         error={errors.password}
@@ -102,7 +104,8 @@ export function Registration() {
       />
       <Input
         label='label'
-        value='Age'
+        value={age}
+        placeholder='Age'
         className={`${styles.input}`}
         onChange={onChangeAge}
         error={errors.age}
