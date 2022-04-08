@@ -1,18 +1,7 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { createContext, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import {
-  fetchPost,
-  fetchPosts,
-  searchGifs,
-} from '../../redux/actions/postActions';
+import { searchGifs } from '../../redux/actions/postActions';
 import { IState } from '../../redux/store';
 import { Button } from '../Button/Button';
 import { Input } from '../Input/Input';
@@ -70,7 +59,7 @@ export function Header() {
       }}
     >
       <div className={`${styles.container}`}>
-        <div className={`${styles.header}`}>
+        <div className={`${styles.wrapper}`}>
           <img
             onClick={() => {
               history.push('/');

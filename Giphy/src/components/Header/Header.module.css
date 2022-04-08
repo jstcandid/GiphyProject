@@ -5,16 +5,21 @@
   padding: 0;
 }
 
+.wrapper {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 50px auto 150px;
+  grid-template-rows: 60px;
+  grid-template-areas: 'logo input buttons';
+  column-gap: 10px;
+}
+
 .back {
   width: 100vw;
   position: absolute;
   z-index: 10;
-}
-
-.header {
-  display: flex;
-  align-items: flex-end;
-  margin-bottom: 40px;
 }
 
 :root {
@@ -24,22 +29,41 @@
 
 .logo {
   cursor: pointer;
-  width: 60px;
+  grid-area: logo;
 }
 
 .input {
-  margin: 0;
+  grid-area: input;
+  /* margin: 0;
   margin-left: 25px;
-  padding: 0;
+  padding: 0;*/
+}
+
+.input_item {
+  box-sizing: border-box;
   width: 100%;
+  background: #f1e8e4;
+  border: none;
+  border-radius: 200px;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 29px;
+  letter-spacing: 0.05em;
+  color: #254050;
+  padding: 0 20px 0 20px;
+  height: 60px;
 }
 
 .buttons {
-  margin: 0 2vw 0 2vw;
-  justify-content: flex-end;
+  grid-area: buttons;
+
+  /* margin: 0 2vw 0 2vw; */
+  /* justify-content: flex-end; 
   align-items: center;
-  display: flex;
-  position: relative;
+  display: flex; */
+  /* position: relative; */
 }
 
 .button_person {
@@ -73,22 +97,6 @@
 
 .button_person:hover {
   filter: brightness(0.8);
-}
-
-.input_item {
-  background: #f1e8e4;
-  border: none;
-  border-radius: 200px;
-  font-family: Raleway;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 25px;
-  line-height: 29px;
-  letter-spacing: 0.05em;
-  color: #254050;
-  padding: 0 20px 0 20px;
-  height: 60px;
-  width: 1100px;
 }
 
 .navbar {
