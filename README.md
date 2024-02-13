@@ -11,7 +11,7 @@ So basically what i was trying to do was creating Pinterest like website but wit
 * Get a better view of any post
 
 
-**Technologies used: **
+**Technologies used:**
 
 * Typescript
 * React
